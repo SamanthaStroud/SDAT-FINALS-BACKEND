@@ -33,9 +33,9 @@ public class DataSeeder implements CommandLineRunner {
         databases.setDescription("Core database concepts every developer should know.");
         databases.setCategory("Backend");
         databases.setCategorySymbol("🗄️");
-        databases.setColor("#336791");
-        databases.setAccentColor("#4a90d9");
-        databases.setBorderColor("#2c5a7a");
+        databases.setColor("#7c3aed");
+        databases.setAccentColor("#a78bfa");
+        databases.setBorderColor("#5b21b6");
         topicRepository.save(databases);
 
         Concept normalization = new Concept();
