@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: sdat
+      POSTGRES_PASSWORD: sdat_dev_pw
+      POSTGRES_DB: sdat_finals
+    ports:
+      - "5432:5432"
+    volumes:
+      - sdat_finals_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sdat -d sdat_finals"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      # Overrides application.yml's localhost default — inside the compose
+      # network the DB is reachable at the service name "db", not localhost.
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/sdat_finals
+      SPRING_DATASOURCE_USERNAME: sdat
+      SPRING_DATASOURCE_PASSWORD: sdat_dev_pw
+    ports:
+      - "8080:8080"
+
+volumes:
+  sdat_finals_pgdata:
