@@ -3,7 +3,7 @@ spring:
     name: backend
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/sdat_finals
+    url: jdbc:postgresql://localhost:5433/sdat_finals
     username: sdat
     password: sdat_dev_pw
     driver-class-name: org.postgresql.Driver

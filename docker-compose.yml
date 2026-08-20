@@ -7,7 +7,11 @@ services:
       POSTGRES_PASSWORD: sdat_dev_pw
       POSTGRES_DB: sdat_finals
     ports:
-      - "5432:5432"
+      # host 5433 -> container 5432. Not 5432:5432 - some dev machines have a
+      # native Postgres already bound to localhost:5432, which silently steals
+      # the connection instead of hitting this container. Inside the compose
+      # network the containers still talk to each other on the normal 5432.
+      - "5433:5432"
     volumes:
       - sdat_finals_pgdata:/var/lib/postgresql/data
     healthcheck:
